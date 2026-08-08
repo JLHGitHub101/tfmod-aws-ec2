@@ -47,3 +47,9 @@ output "instance_state" {
   description = "State of the EC2 instance."
   value       = aws_instance.this.instance_state
 }
+
+output "ebs_volume_ids" {
+  description = "Map of device name to EBS volume ID for each additional volume."
+  value       = { for k, v in aws_ebs_volume.this : k => v.id }
+}
+

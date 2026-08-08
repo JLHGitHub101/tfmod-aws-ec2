@@ -26,20 +26,6 @@ resource "aws_instance" "this" {
     tags = local.root_block_device.tags
   }
 
-  dynamic "ebs_block_device" {
-    for_each = var.ebs_block_devices
-    content {
-      device_name           = ebs_block_device.value.device_name
-      volume_type           = ebs_block_device.value.volume_type
-      volume_size           = ebs_block_device.value.volume_size
-      iops                  = ebs_block_device.value.iops
-      throughput            = ebs_block_device.value.throughput
-      encrypted             = ebs_block_device.value.encrypted
-      kms_key_id            = ebs_block_device.value.kms_key_id
-      delete_on_termination = ebs_block_device.value.delete_on_termination
-    }
-  }
-
   metadata_options {
     http_endpoint               = var.metadata_options.http_endpoint
     http_tokens                 = var.metadata_options.http_tokens
