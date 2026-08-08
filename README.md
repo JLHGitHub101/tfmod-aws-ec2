@@ -47,7 +47,7 @@ module "ec2" {
 | Name | Version |
 |------|---------|
 | terraform | >= 1.3.0 |
-| aws | >= 5.0.0 |
+| aws | >= 5.0, < 7.0 |
 
 ## Inputs
 
@@ -83,7 +83,13 @@ module "ec2" {
 | `subnet_id` | ID of the subnet in which the instance is running. |
 | `vpc_id` | ID of the VPC in which the instance is running. |
 | `instance_state` | State of the EC2 instance. |
+| `ebs_volume_ids` | Map of device name to EBS volume ID for each additional volume. |
+
+## Behavioral notes
+
+- Additional volumes in `ebs_block_devices` are created as standalone `aws_ebs_volume` resources and then attached. They are not EC2 inline block-device mappings and are not automatically deleted when the instance is terminated.
+- The EC2 instance lifecycle currently ignores changes to `ami` (`ignore_changes = [ami]`). Changing the AMI value will not trigger instance replacement unless that lifecycle rule is removed.
 
 ## License
 
-MIT
+See [LICENSE](LICENSE).

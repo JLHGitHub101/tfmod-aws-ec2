@@ -70,7 +70,7 @@ variable "root_block_device" {
 }
 
 variable "ebs_block_devices" {
-  description = "Additional EBS block devices to attach to the instance."
+  description = "Additional standalone EBS volumes to attach to the instance."
   type = list(object({
     device_name           = string
     volume_type           = optional(string, "gp3")
@@ -79,7 +79,6 @@ variable "ebs_block_devices" {
     throughput            = optional(number, null)
     encrypted             = optional(bool, true)
     kms_key_id            = optional(string, null)
-    delete_on_termination = optional(bool, true)
   }))
   default = []
 }
