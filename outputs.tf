@@ -40,7 +40,7 @@ output "subnet_id" {
 
 output "vpc_id" {
   description = "ID of the VPC in which the instance is running."
-  value       = aws_instance.this.vpc_id
+  value       = data.aws_subnet.this.vpc_id
 }
 
 output "instance_state" {
@@ -52,4 +52,3 @@ output "ebs_volume_ids" {
   description = "Map of device name to EBS volume ID for each additional volume."
   value       = { for k, v in aws_ebs_volume.this : k => v.id }
 }
-
