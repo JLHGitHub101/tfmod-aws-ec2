@@ -15,15 +15,15 @@ resource "aws_instance" "this" {
   monitoring = var.monitoring
 
   root_block_device {
-    volume_type           = var.root_block_device.volume_type
-    volume_size           = var.root_block_device.volume_size
-    iops                  = var.root_block_device.iops
-    throughput            = var.root_block_device.throughput
-    encrypted             = var.root_block_device.encrypted
-    kms_key_id            = var.root_block_device.kms_key_id
-    delete_on_termination = var.root_block_device.delete_on_termination
+    volume_type           = local.root_block_device.volume_type
+    volume_size           = local.root_block_device.volume_size
+    iops                  = local.root_block_device.iops
+    throughput            = local.root_block_device.throughput
+    encrypted             = local.root_block_device.encrypted
+    kms_key_id            = local.root_block_device.kms_key_id
+    delete_on_termination = local.root_block_device.delete_on_termination
 
-    tags = merge(var.tags, { Name = var.name })
+    tags = local.root_block_device.tags
   }
 
   dynamic "ebs_block_device" {
